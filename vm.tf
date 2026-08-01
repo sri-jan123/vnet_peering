@@ -25,10 +25,11 @@ resource "azurerm_virtual_machine" "main1" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
     version   = "latest"
   }
+
   storage_os_disk {
     name              = "myosdisk1"
     caching           = "ReadWrite"
@@ -38,7 +39,7 @@ resource "azurerm_virtual_machine" "main1" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "Password1234!"
+    admin_password = azurerm_key_vault_secret.vm_password.value
   }
   os_profile_linux_config {
     disable_password_authentication = false
@@ -75,10 +76,11 @@ resource "azurerm_virtual_machine" "main2" {
 
   storage_image_reference {
     publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
+    offer     = "ubuntu-24_04-lts"
+    sku       = "server"
     version   = "latest"
   }
+
   storage_os_disk {
     name              = "myosdisk2"
     caching           = "ReadWrite"
@@ -88,7 +90,7 @@ resource "azurerm_virtual_machine" "main2" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "Password1234!"
+    admin_password = azurerm_key_vault_secret.vm_password.value
   }
   os_profile_linux_config {
     disable_password_authentication = false
